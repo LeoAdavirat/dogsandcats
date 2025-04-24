@@ -23,9 +23,8 @@ test_dir = 'test'
 os.makedirs(train_dir, exist_ok=True)
 os.makedirs(test_dir, exist_ok=True)
 
+
 # Function to validate images
-
-
 def is_valid_image(file_path):
     try:
         img = Image.open(file_path)
@@ -60,9 +59,8 @@ for category in ['Cat', 'Dog']:
         os.makedirs(dest, exist_ok=True)
         shutil.copy(img, dest)
 
+
 # Step 2: Define custom dataset
-
-
 class CatsDogsDataset(Dataset):
     def __init__(self, root_dir, transform=None):
         self.root_dir = root_dir
@@ -92,9 +90,8 @@ class CatsDogsDataset(Dataset):
 
         return img, label
 
+
 # Step 3: Define the CNN model
-
-
 class ConvNet(nn.Module):
     def __init__(self):
         super(ConvNet, self).__init__()
@@ -146,9 +143,9 @@ test_transforms = transforms.Compose([
 train_dataset = CatsDogsDataset(train_dir, transform=train_transforms)
 test_dataset = CatsDogsDataset(test_dir, transform=test_transforms)
 
-# Step 6: Hyperparameter tuning (simple grid search)
-learning_rates = [1e-3]
-batch_sizes = [64]
+# Step 6: Hyperparameter tuning
+learning_rates = [1e-3, 1e-4, 0.01, 1e-5]
+batch_sizes = [64, 32]
 best_val_acc = 0
 best_model_state = None
 best_params = {}
